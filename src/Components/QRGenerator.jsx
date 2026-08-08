@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { QRCodeCanvas } from "qrcode.react"; // correct import for v3+
+import { QRCodeCanvas } from "qrcode.react";
 
 export default function QRGenerator() {
   const [token, setToken] = useState("");
@@ -13,15 +13,15 @@ export default function QRGenerator() {
     <div>
       <button
         onClick={generate}
-        style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid #1677ff", background: "#1677ff", color: "white", cursor: "pointer" }}
+        className="px-5 py-2.5 rounded-full font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors shadow-sm"
       >
         Generate QR
       </button>
 
       {token && (
-        <div style={{ marginTop: 12, textAlign: "center" }}>
+        <div style={{ marginTop: 16, textAlign: "center" }} className="p-4 bg-gray-50 rounded-2xl border border-gray-200 inline-block">
           <QRCodeCanvas value={token} size={180} />
-          <div style={{ fontSize: 12, color: "#555", marginTop: 8 }}>
+          <div className="text-xs text-gray-500 mt-2">
             Share this QR with the doctor
           </div>
         </div>

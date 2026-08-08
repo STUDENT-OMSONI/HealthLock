@@ -1,68 +1,71 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Stethoscope } from "lucide-react"; // healthcare icon (needs: npm install lucide-react)
+import { GoogleLogin } from "@react-oauth/google";
+import Logo from "../Components/Logo";
+import { loginWithGoogle } from "../auth";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleLogin = () => {
-    if (email && password) {
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setLoading(true);
+    setError("");
+    try {
+      // Sends the Google credential to our real backend, which verifies it
+      // with Google and returns the user's real role from the database.
+      await loginWithGoogle(credentialResponse.credential);
       navigate("/dashboard");
-    } else {
-      alert("Invalid credentials");
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError(
+        err.message.includes("fetch")
+          ? "Could not reach the server. Make sure the backend is running (npm run dev inside the server folder)."
+          : err.message
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-green-700 relative overflow-hidden">
-      {/* Futuristic background shapes */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-
-      {/* Glassmorphism Card */}
-      <div className="relative z-10 bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 rounded-3xl p-10 w-96 text-center">
-        {/* Logo / Branding */}
-        <div className="flex flex-col items-center mb-6">
-          <div className="p-3 bg-blue-600 rounded-full shadow-lg mb-2">
-            <Stethoscope className="text-white w-8 h-8" />
-          </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-wide">
-            Health<span className="text-green-300">Care+</span>
-          </h1>
-          <p className="text-gray-200 text-sm mt-1">Secure Patient Portal</p>
+    <div className="min-h-[80vh] bg-gray-50 flex items-center justify-center px-6 py-16">
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-3xl p-10 shadow-lg">
+        <div className="flex justify-center mb-6">
+          <Logo />
         </div>
-
-        {/* Login Form */}
-        <h2 className="text-xl font-semibold text-white mb-6">
-          Sign in to Continue
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">
+          Sign in to your account
         </h2>
-        <input
-          type="email"
-          placeholder="Email address"
-          className="mb-4 px-4 py-3 w-full rounded-xl bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:ring-2 focus:ring-green-300 outline-none"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="mb-6 px-4 py-3 w-full rounded-xl bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:ring-2 focus:ring-green-300 outline-none"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <p className="text-gray-500 text-sm text-center mb-8">
+          Only Google accounts can access HealthLock.
+        </p>
 
-        <button
-          onClick={handleLogin}
-          className="w-full py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-transform duration-300"
-        >
-          Login
-        </button>
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl p-3 mb-4 text-center">
+            {error}
+          </p>
+        )}
 
-        {/* Extra Links */}
-        <div className="flex justify-between mt-4 text-sm text-gray-200">
-          <button className="hover:text-green-300 transition">Forgot Password?</button>
-          <button className="hover:text-green-300 transition">Create Account</button>
+        <div className="flex justify-center">
+          {loading ? (
+            <p className="text-sm text-gray-500">Signing you in...</p>
+          ) : (
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError("Google Sign-In failed. Please try again.")}
+              theme="outline"
+              shape="pill"
+              size="large"
+              width="280"
+            />
+          )}
         </div>
+
+        <p className="text-center text-xs text-gray-400 mt-8">
+          By continuing, you agree to HealthLock's terms and privacy policy.
+        </p>
       </div>
     </div>
   );

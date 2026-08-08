@@ -1,11 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import App from "./App.jsx";
+import { ToastProvider } from "./Components/Toast.jsx";
+import { initTheme } from "./theme.js";
 import "./index.css";
-// import "./i18n"; // import i18n setup
+
+initTheme();
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <ToastProvider>
+        <App />
+      </ToastProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );

@@ -4,20 +4,16 @@ function AccessLogs() {
   const logs = [
     { user: "Dr. Sharma", action: "Viewed MRI Report", time: "12:30 PM" },
     { user: "Pharmacist", action: "Checked Prescription", time: "01:00 PM" },
-  ]; 
-  // TODO: fetch from backend
+  ];
 
   return (
-    <div className="p-4 border rounded-lg shadow mt-4">
-      <h2 className="font-bold mb-2">Access Logs</h2>
-      <ul>
-        {logs.map((log, index) => (
-          <li key={index} className="text-sm">
-            {log.user} - {log.action} @ {log.time}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="space-y-2">
+      {logs.map((log, index) => (
+        <li key={index} className="text-sm text-gray-700 p-3 bg-gray-50 border border-gray-200 rounded-xl">
+          <span className="font-semibold text-gray-900">{log.user}</span> — {log.action} @ {log.time}
+        </li>
+      ))}
+    </ul>
   );
 }
 

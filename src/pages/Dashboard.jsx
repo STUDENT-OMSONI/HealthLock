@@ -44,8 +44,8 @@ import {
   decryptDocumentClientSide,
   computeSHA256,
   reencryptDocKeyForDoctor,
-} from "../services/cryptoService";
-import { VERIFIED_DOCTORS, CATEGORIES } from "../data/doctorsData";
+} from "../services/cryptoService.js";
+import { VERIFIED_DOCTORS, CATEGORIES } from "../data/doctorsData.js";
 
 export default function Dashboard() {
   const [searchParams, setSearchParams] = useSearchParams();

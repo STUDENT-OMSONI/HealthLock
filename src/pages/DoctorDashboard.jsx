@@ -41,7 +41,7 @@ import {
   generateUserKeyPair,
   decryptDocumentClientSide,
   computeSHA256,
-} from "../services/cryptoService";
+} from "../services/cryptoService.js";
 
 export default function DoctorDashboard() {
   const [searchParams, setSearchParams] = useSearchParams();

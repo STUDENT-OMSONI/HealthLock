@@ -1,6 +1,6 @@
-import { generateUserKeyPair, storePrivateKeyLocally, getLocalPrivateKey } from "./services/cryptoService";
+import { generateUserKeyPair, storePrivateKeyLocally, getLocalPrivateKey } from "./services/cryptoService.js";
 
-export { getLocalPrivateKey, storePrivateKeyLocally } from "./services/cryptoService";
+export { getLocalPrivateKey, storePrivateKeyLocally } from "./services/cryptoService.js";
 
 const USER_KEY = "healthlock_user";
 const TOKEN_KEY = "healthlock_token";

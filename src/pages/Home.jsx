@@ -37,7 +37,7 @@ import {
   X,
   Check,
 } from "lucide-react";
-import { VERIFIED_DOCTORS, CATEGORIES } from "../data/doctorsData";
+import { VERIFIED_DOCTORS, CATEGORIES } from "../data/doctorsData.js";
 import heroTeamImg from "../assets/hero-team.jpg";
 
 const easeSmooth = [0.22, 1, 0.36, 1];

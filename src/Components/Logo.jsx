@@ -1,15 +1,19 @@
 import React from "react";
-import { Lock } from "lucide-react";
+import medikeyLogoImg from "../assets/medikey-logo.png";
 
-export default function Logo({ size = "text-2xl" }) {
+export default function Logo({ size = "text-2xl", imgHeight = "h-8 md:h-9", textColor = "text-gray-900", showText = true }) {
   return (
-    <div className={`flex items-center gap-2 font-extrabold ${size}`}>
-      <span className="flex items-center justify-center w-8 h-8 rounded-full bg-red-600 text-white">
-        <Lock size={18} strokeWidth={2.5} />
-      </span>
-      <span className="text-gray-900">
-        health<span className="text-red-600">lock</span>
-      </span>
+    <div className={`inline-flex items-center gap-2.5 font-black tracking-tight select-none ${size}`}>
+      <img
+        src={medikeyLogoImg}
+        alt="MediKey Logo"
+        className={`${imgHeight} w-auto object-contain transition-transform duration-200 hover:scale-105`}
+      />
+      {showText && (
+        <span className={textColor}>
+          Medi<span className="text-red-600">Key</span>
+        </span>
+      )}
     </div>
   );
 }

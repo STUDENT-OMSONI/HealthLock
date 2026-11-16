@@ -24,6 +24,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-200 pt-8">
         <Logo />
         <div className="flex flex-wrap gap-6 text-sm font-semibold text-gray-700">
+          <Link to="/" className="hover:text-red-600 transition-colors">Home</Link>
           <Link to="/about" className="hover:text-red-600 transition-colors">About Us</Link>
           <Link to="/privacy" className="hover:text-red-600 transition-colors">Privacy</Link>
           <Link to="/contact" className="hover:text-red-600 transition-colors">Contact</Link>
@@ -36,7 +37,7 @@ function Footer() {
       </div>
 
       <p className="text-center text-xs text-gray-400 mt-8">
-        © 2026 HealthLock. All rights reserved.
+        &copy; 2026 MediKey. All rights reserved.
       </p>
     </footer>
   );
